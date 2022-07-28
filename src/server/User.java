@@ -1,5 +1,5 @@
 package server;
-//ДЗ: решить и обосновать какие гет и сет нужны этому глассу, сделать чтобы сообщение не получал отправитель
+//ДЗ: решить и обосновать какие гет и сет нужны этому классу, сделать чтобы сообщение не получал отправитель
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -12,6 +12,39 @@ public class User {
     private Socket socket;
     private DataInputStream is;
     private DataOutputStream out;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+
+    public DataInputStream getIs() {
+        return is;
+    }
+
+    public void setIs(DataInputStream is) {
+        this.is = is;
+    }
+
+    public DataOutputStream getOut() {
+        return out;
+    }
+
+    public void setOut(DataOutputStream out) {
+        this.out = out;
+    }
 
     public User(Socket socket) throws IOException {
         this.socket = socket;

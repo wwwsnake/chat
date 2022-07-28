@@ -18,7 +18,7 @@ public class Client {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String response = null;//сохраняем ответ в переменную
+                    String response = null;
                     try {
                         while (true) {
                             response = is.readUTF();//сохраняем ответ в переменную
