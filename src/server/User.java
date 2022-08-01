@@ -9,6 +9,11 @@ import java.util.UUID;
 public class User {
     private String name;
     private UUID uuid; //создает id пользователя
+
+    public DataOutputStream getOut() {
+        return out;
+    }
+
     private Socket socket;
     private DataInputStream is;
     private DataOutputStream out;
@@ -34,17 +39,10 @@ public class User {
         return is;
     }
 
-    public void setIs(DataInputStream is) {
-        this.is = is;
-    }
 
-    public DataOutputStream getOut() {
-        return out;
-    }
 
-    public void setOut(DataOutputStream out) {
-        this.out = out;
-    }
+
+
 
     public User(Socket socket) throws IOException {
         this.socket = socket;
