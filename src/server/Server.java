@@ -2,6 +2,9 @@ package server;
 
 //ДЗ: получить список онлайн пользователей и вывести
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,11 +26,13 @@ public class Server {
                     @Override
                     public void run() {
                         try {
-                            currentUser.getOut().writeUTF("Введите имя:");
+                            currentUser.getOut().writeUTF("{\"msg\":\"Введите имя:\"}");
                             currentUser.setName(currentUser.getIs().readUTF());
                             sendOnlineUsers();
                             while (true) {
                                 String message = currentUser.getIs().readUTF();
+                                JSONObject jsonObject = new JSONObject();
+                                jsonObject.put("msg",currentUser.getName() + " " + message);//превращаем сообщение в объект JSON
                                 for (User user : users) {
                                     if (!currentUser.getUuid().toString().equals(user.getUuid().toString())) {
                                         user.getOut().writeUTF(currentUser.getName() + "#" + currentUser.getUuid() + " сообщает: " + message);
@@ -61,12 +66,14 @@ public class Server {
     }
 
     static void sendOnlineUsers() throws IOException {
-        StringBuilder onlineUserList = new StringBuilder();
+        JSONArray onlineUsersJSON = new JSONArray();
+        JSONObject jsonObject = new JSONObject();
         for (User user : users) {
-            onlineUserList.append("users//" + user.getName() + "\n");
+           onlineUsersJSON.add(user.getName());
         }
+        jsonObject.put("users", onlineUsersJSON);
         for (User user : users) {
-            user.getOut().writeUTF(onlineUserList.toString());
+            user.getOut().writeUTF(onlineUsersJSON.toJSONString());
         }
     }
 }
